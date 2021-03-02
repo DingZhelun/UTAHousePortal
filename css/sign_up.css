@@ -69,7 +69,21 @@
     font-weight: 600;
     color: #fff;
 }
-
+.form .inputBox select{
+    width: 100px;
+}
+#subdivision_text{
+    display: block;
+}
+#building_text{
+    display: none;
+}
+#apartment_text{
+    display: none;
+}
+#service_div{
+    display: none;
+}
 
 
 

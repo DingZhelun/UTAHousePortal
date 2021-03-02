@@ -2,11 +2,154 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Sign Up</title>
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/sign_up.css">
 </head>
 <body>
+<script type="application/javascript">
+    function selectRole(){
+        var mySelect = document.getElementById("role");
+        var index = mySelect.selectedIndex;
+        var text = mySelect.options[index].text;
+        var value = mySelect.options[index].value;
+
+        if (index == 2){
+            document.getElementById("building_text").style.display="block";
+            document.getElementById("apartment_text").style.display="block";
+        }else if (index == 1){
+            document.getElementById("building_text").style.display="block";
+            document.getElementById("apartment_text").style.display="none";
+        }else if (index ==0){
+            document.getElementById("building_text").style.display="none";
+            document.getElementById("apartment_text").style.display="none";
+        }
+    }
+
+</script>
+
+<script type="application/javascript">
+    function selectService(){
+        var mySelect = document.getElementById("service");
+        var index = mySelect.selectedIndex;
+        var text = mySelect.options[index].text;
+        var value = mySelect.options[index].value;
+        if (index==1){
+            document.getElementById("service_div").style.display="block";
+        }else{
+            document.getElementById("service_div").style.display="none";
+        }
+    }
+</script>
+<script type="application/javascript">
+    function InputCheck(){
+        if (SignUp.name.value=="" || SignUp.email.value=="" || SignUp.phone.value=="" || SignUp.address.value==""){
+            alert("Please complete information!")
+            return(false);
+        }
+    }
+</script>
+<script src="//cdn.bootcss.com/jquery/3.0.0-alpha1/jquery.min.js"></script>
+<script type="application/javascript">
+    $(function(){
+        $('#subdivision').blur(function (){
+            var subdivision = $('#subdivision').val();
+            var building_available;
+            if ($('#role').val()=="Building"){
+                building_available = 1;
+            }
+            else{
+                building_available = 0;
+            }
+            $.ajax({
+                type: "post",
+                url: "php/getBuilding.php",
+                data:{subdivision:subdivision,building_available:building_available},
+                dataType: "json",
+                success: function(msg){
+                    document.getElementById("building").options.length=0;
+                    for (var i=0; i<msg.length;i++){
+                        var obj = document.getElementById("building");
+                        var value = msg[i].building_number;
+                        obj.options.add(new Option(value));
+                    }
+                },
+                error:function(msg){
+                    console.log(msg);
+                }
+            })
+        })
+
+    })
+</script>
+<script type="application/javascript">
+    $(function(){
+        $('#building').blur(function (){
+            var subdivision = $('#subdivision').val();
+            var building_number = Number($('#building').val());
+            $.ajax({
+                type: "post",
+                url: "php/getApartment.php",
+                data: {subdivision:subdivision,building_number:building_number},
+                dataType: "json",
+                success: function (msg){
+                    document.getElementById("apartment").options.length=0;
+                    for (var i=0; i<msg.length;i++){
+                        var obj = document.getElementById("apartment");
+                        var value = msg[i].apartment_number;
+                        obj.options.add(new Option(value));
+                    }
+                },
+                error:function (msg){
+                    console.log(msg);
+                }
+            })
+        })
+    })
+</script>
+<script type="application/javascript">
+    $(function (){
+        $('#service').blur(function (){
+            var subdivision = $('#subdivision').val();
+            var result = $('#service').val();
+            if ($('#service').val()=="Service"){
+                $.ajax({
+                    type: "post",
+                    url: "php/getService.php",
+                    data: {subdivision:subdivision},
+                    dataType: "json",
+                    success: function (msg){
+                        if (msg[0].electricity=="1"){
+                            document.getElementById("electricity").disabled=true;
+                            document.getElementById("electricity").checked=true;
+                        }else{
+                            document. getElementById("electricity").disabled=false;
+                            document.getElementById("electricity").checked=false;
+                        }
+                        if (msg[0].water=="0"){
+                            document.getElementById("water").disabled=true;
+                            document.getElementById("water").checked=true;
+                        }else{
+                            document.getElementById("water").disabled=false;
+                            document.getElementById("water").checked=false;
+                        }
+                        if (msg[0].gas=="1"){
+                            document.getElementById("gas").disabled=true;
+                            document.getElementById("gas").checked=true;
+                        }else{
+                            document.getElementById("gas").disabled=false;
+                            document.getElementById("gas").checked=false;
+                        }
+
+                    },
+                    error:function (msg){
+                        console.log(msg);
+                    }
+                })
+            }
+        })
+    })
+</script>
 <div class="logo-wrap">
     <h1 class="logo-title">House Portal</h1>
     <h5 class="logo-uta">UTA</h5>
@@ -35,45 +178,62 @@
             <hr/>
         </div>
         <div class="form">
-            <form>
+            <form name="SignUp" action="php/sign_up.php" method="post" onsubmit="return InputCheck()">
                 <div class="inputBox">
                     <p>Name</p>
-                    <input type="text" >
+                    <input id="name" name="name" type="text" >
                 </div>
                 <div class="inputBox">
                     <p>Email</p>
-                    <input type="text">
+                    <input name="email" type="email">
                 </div>
                 <div class="inputBox">
                     <p>Phone</p>
-                    <input type="tel">
+                    <input name="phone" type="tel">
                 </div>
                 <div class="inputBox">
+                    <p>Address</p>
+                    <input name="address" type="text">
+                </div>
+                <div class="inputBox">
+                    <p>Your Preference</p>
+                    <select onclick="selectRole()" id="role" name="role">
+                        <option value="Subdivision">Subdivision</option>
+                        <option value="Building">Building</option>
+                        <option value="Apartment">Apartment</option>
+                    </select>
+                </div>
+                <div class="inputBox" id="subdivision_text">
                     <p>Subdivision</p>
-                    <input type="text">
+                    <input id="subdivision" type="text">
                 </div>
-                <div class="inputBox">
+                <div class="inputBox" id="building_text">
                     <p>Building</p>
-                    <input type="text">
+                    <select id="building">
+                    </select>
                 </div>
-                <div class="inputBox">
+                <div class="inputBox" id="apartment_text">
                     <p>Apartment</p>
-                    <input type="text">
-                </div>
-                <div class="inputBox">
-                    <p>What do you want Sign up for</p>
-                    <select name="" id="">
-                        <option value="subdivision">Subdivision</option>
-                        <option value="building">Building</option>
-                        <option value="apartment">Apartment</option>
-                        <option value="services">Service</option>
-                        <option value="self-service">Self-Service[Apt]</option>
+                    <select id="apartment">
                     </select>
                 </div>
                 <div class="inputBox">
-                    <div class="inputBox">
-                        <input type="submit" value="Login">
-                    </div>
+                    <p>What do you want Sign up for</p>
+                    <select name="service" id="service" onclick="selectService()">
+                        <option value="select" hidden>--select--</option>
+                        <option value="Service">Service</option>
+                        <option value="Self-Service">Self-Service[Apt]</option>
+                    </select>
+                </div>
+                <br>
+                <div id="service_div">
+                        <label><input id = "water" name="service" type="checkbox" value="water ">water</label>
+                        <label><input id = "gas" name="service" type="checkbox" value="gas ">gas</label>
+                        <label><input id = "electricity" name="service" type="checkbox" value="electricity ">electricity</label>
+                        <label><input id = "Internet" name="service" type="checkbox" value="Internet ">Internet</label>
+                </div>
+                <div class="inputBox">
+                    <input id="submit" name="submit" type="submit" value="Sign Up">
                 </div>
 
             </form>

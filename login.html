@@ -7,6 +7,20 @@
     <link rel="stylesheet" type="text/css" href="css/login.css">
 </head>
 <body>
+<script type="application/javascript">
+    function InputCheck(){
+        if (Login.email.value==""){
+            alert("Please input email!")
+            Login.email.focus();
+            return(false);
+        }
+        if (Login.password.value==""){
+            alert("Please input password!")
+            Login.password.focus();
+            return(false);
+        }
+    }
+</script>
 <div class="logo-wrap">
     <h1 class="logo-title">House Portal</h1>
     <h5 class="logo-uta">UTA</h5>
@@ -31,15 +45,15 @@
     <div class="container">
         <div class="form">
             <h1>Sign In</h1>
-            <form>
+            <form action="php/login.php" method="post" name="Login" onsubmit="return InputCheck()">
                 <div class="inputBox">
-                    <input type="text" placeholder="e-mail">
+                    <input name = "email" id="email" type="text" placeholder="e-mail">
                 </div>
                 <div class="inputBox">
-                    <input type="password" placeholder="password">
+                    <input name="password" id="password" type="password" placeholder="password">
                 </div>
                 <div class="inputBox">
-                    <input type="submit" value="Login">
+                    <input name="submit" type="submit" value="Login">
                 </div>
                 <p class="forget">Forget Password?
                     <a href="#">Click here</a>
