@@ -11,36 +11,42 @@ $sql = "select * from Contacts where contact_email = '$email' and password='$pas
 $result = $conn->query($sql);
 $rows=$result->fetch_assoc();
 if($rows){
-    $_SESSION['email'] = $rows['contact_email'];
-    $_SESSION['name'] = $rows['contact_name'];
-    $_SESSION['tel'] = $rows['contact_tel'];
-    $_SESSION['role'] = $rows['role'];
-    $_SESSION['address'] = $rows['address'];
 
-    if ($rows['role']=="Subdivision"){
+    if ($rows['available']==1) {
+        $_SESSION['email'] = $rows['contact_email'];
+        $_SESSION['name'] = $rows['contact_name'];
+        $_SESSION['tel'] = $rows['contact_tel'];
+        $_SESSION['role'] = $rows['role'];
+        $_SESSION['address'] = $rows['address'];
+
+        if ($rows['role'] == "Subdivision") {
+            echo "
+                <script>
+                    alert('login success,Subdivision');
+                </script>";
+        } else if ($rows['role'] == "Building") {
+            echo "
+                <script>
+                    alert('login success,Building');
+                </script>";
+        } else if ($rows['role'] == "Apartment") {
+            echo "
+                <script>
+                    alert('login success,Apartment');
+                </script>";
+        } else if ($rows['role'] == "SuperAdmin") {
+            echo "
+                <script>
+                    alert('login success,SuperAdmin');
+                </script>";
+        }
+        exit;
+    }else{
         echo "
-    <script>
-        alert('login success,Subdivision');
-    </script>";
-    }else if ($rows['role']=="Building"){
-        echo "
-    <script>
-        alert('login success,Building');
-    </script>";
-    }else if ($rows['role']=="Apartment"){
-        echo "
-    <script>
-        alert('login success,Apartment');
-    </script>";
-    }else if ($rows['role']=="SuperAdmin"){
-        echo "
-    <script>
-        alert('login success,SuperAdmin');
-    </script>";
+            <script>
+                alert('Account not activated');
+            </script>";
     }
-
-
-    exit;
 }else{
     echo "
     <script>

@@ -17,12 +17,15 @@
         if (index == 2){
             document.getElementById("building_text").style.display="block";
             document.getElementById("apartment_text").style.display="block";
+            document.getElementById("service_select").style.display="block";
         }else if (index == 1){
             document.getElementById("building_text").style.display="block";
             document.getElementById("apartment_text").style.display="none";
+            document.getElementById("service_select").style.display="none";
         }else if (index ==0){
             document.getElementById("building_text").style.display="none";
             document.getElementById("apartment_text").style.display="none";
+            document.getElementById("service_select").style.display="block";
         }
     }
 
@@ -54,24 +57,29 @@
     $(function(){
         $('#subdivision').blur(function (){
             var subdivision = $('#subdivision').val();
-            var building_available;
-            if ($('#role').val()=="Building"){
-                building_available = 1;
-            }
-            else{
-                building_available = 0;
-            }
+            var role = $('#role').val();
             $.ajax({
                 type: "post",
                 url: "php/getBuilding.php",
-                data:{subdivision:subdivision,building_available:building_available},
+                data:{subdivision:subdivision,role:role},
                 dataType: "json",
                 success: function(msg){
-                    document.getElementById("building").options.length=0;
-                    for (var i=0; i<msg.length;i++){
-                        var obj = document.getElementById("building");
-                        var value = msg[i].building_number;
-                        obj.options.add(new Option(value));
+                    if (role=="Subdivision"){
+                        if(msg.length==0){
+                            alert("This subdivision is not in the database");
+                            document.getElementById("subdivision").value="";
+                        }
+                        if (msg[0].available=="0"){
+                            alert("This subdivision has been registered");
+                            document.getElementById("subdivision").value="";
+                        }
+                    }else{
+                        document.getElementById("building").options.length=0;
+                        for (var i=0; i<msg.length;i++){
+                            var obj = document.getElementById("building");
+                            var value = msg[i].building_number;
+                            obj.options.add(new Option(value));
+                        }
                     }
                 },
                 error:function(msg){
@@ -126,7 +134,7 @@
                             document. getElementById("electricity").disabled=false;
                             document.getElementById("electricity").checked=false;
                         }
-                        if (msg[0].water=="0"){
+                        if (msg[0].water=="1"){
                             document.getElementById("water").disabled=true;
                             document.getElementById("water").checked=true;
                         }else{
@@ -147,6 +155,117 @@
                     }
                 })
             }
+        })
+    })
+</script>
+<script type="application/javascript">
+    $(function (){
+        $('#submit').click(function (){
+            var name = $('#name').val();
+            var email = $('#email').val();
+            var password = $('#password').val();
+            var phone = $('#phone').val();
+            var address = $('#address').val();
+            var role = $('#role').val();
+            var subdivision = $('#subdivision').val();
+            var building = Number($('#building').val());
+            var apartment = Number($('#apartment').val());
+            var code = Number($('#verification_code').val());
+
+            var water;
+            var gas;
+            var electricity;
+            var Internet;
+
+            if ($('#service').val()=="Service"){
+                water = $('#water').val();
+                gas = $('#gas').val();
+                electricity = $('#electricity').val();
+                Internet = $('#Internet').val();
+            }else{
+                water = 0;
+                gas = 0;
+                electricity =0;
+                Internet = 0;
+            }
+            $.ajax({
+                type: "post",
+                url: "php/sign_up.php",
+                data: {name:name,email:email,phone:phone,address:address,role:role,subdivision: subdivision,building:building,apartment:apartment,water:water,gas:gas,electricity:electricity,Internet:Internet,password:password,code:code},
+                dataType: "json",
+                success: function (msg){
+                    switch (msg){
+                        case 0:
+                            alert("Validation code is invalid");
+                            break;
+                        case 1:
+                            alert("Register successfully,Subdivision");
+                            window.location.href="login.html";
+                            break;
+                        case 2:
+                            alert("Register successfully,Building");
+                            window.location.href="login.html";
+                            break;
+                        case 3:
+                            alert("Register successfully,Apartment");
+                            window.location.href="login.html";
+                            break;
+                    }
+                },
+                error:function (msg){
+                    console.log(msg);
+                }
+
+            })
+
+
+        })
+    })
+</script>
+<script type="application/javascript">
+    $(function (){
+      $('#email').blur(function (){
+          var email = $('#email').val();
+          $.ajax({
+              type: "post",
+              url: "php/getEmail.php",
+              data: {email:email},
+              dataType: "json",
+              success: function (msg){
+                  if (msg.length!=0 && msg[0].available=="1"){
+                      alert("Email has been registed!");
+                      document.getElementById("email").value="";
+                  }
+              },
+              error:function (msg){
+                  console.log(msg);
+              }
+          })
+      })
+    })
+</script>
+<script type="application/javascript">
+    $(function (){
+        $('#send_code').click(function (){
+            var name = $('#name').val();
+            var email = $('#email').val();
+            var password = $('#password').val();
+            var phone = $('#phone').val();
+            var address = $('#address').val();
+            var role = $('#role').val();
+
+            $.ajax({
+                type: "post",
+                url: "php/send_code.php",
+                data: {email:email,name:name,password:password,phone:phone,address:address,role:role},
+                dataType: "json",
+                success: function (msg){
+                    alert(1);
+                },
+                error:function (msg){
+                    console.log(msg);
+                }
+            })
         })
     })
 </script>
@@ -178,22 +297,26 @@
             <hr/>
         </div>
         <div class="form">
-            <form name="SignUp" action="php/sign_up.php" method="post" onsubmit="return InputCheck()">
+            <form name="SignUp" method="post" onsubmit="return InputCheck()">
+                <div class="inputBox">
+                    <p>Email</p>
+                    <input id="email" name="email" type="email">
+                </div>
+                <div class="inputBox">
+                    <p>Password</p>
+                    <input id="password" name="password" type="password">
+                </div>
                 <div class="inputBox">
                     <p>Name</p>
                     <input id="name" name="name" type="text" >
                 </div>
                 <div class="inputBox">
-                    <p>Email</p>
-                    <input name="email" type="email">
-                </div>
-                <div class="inputBox">
                     <p>Phone</p>
-                    <input name="phone" type="tel">
+                    <input id="phone" name="phone" type="tel">
                 </div>
                 <div class="inputBox">
                     <p>Address</p>
-                    <input name="address" type="text">
+                    <input id="address" name="address" type="text">
                 </div>
                 <div class="inputBox">
                     <p>Your Preference</p>
@@ -217,7 +340,7 @@
                     <select id="apartment">
                     </select>
                 </div>
-                <div class="inputBox">
+                <div class="inputBox" id="service_select">
                     <p>What do you want Sign up for</p>
                     <select name="service" id="service" onclick="selectService()">
                         <option value="select" hidden>--select--</option>
@@ -232,8 +355,13 @@
                         <label><input id = "electricity" name="service" type="checkbox" value="electricity ">electricity</label>
                         <label><input id = "Internet" name="service" type="checkbox" value="Internet ">Internet</label>
                 </div>
+                <div>
+                    <p>Verification code</p>
+                    <input id="verification_code" type="text">
+                    <input id="send_code" type="button" value="Send Code" onclick="return InputCheck()">
+                </div>
                 <div class="inputBox">
-                    <input id="submit" name="submit" type="submit" value="Sign Up">
+                    <input id="submit" type="button" name="submit" value="Sign Up" onclick="return InputCheck()">
                 </div>
 
             </form>

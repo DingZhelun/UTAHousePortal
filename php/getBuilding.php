@@ -2,18 +2,25 @@
 include('connect.php');
 
 $subdivision = $_POST['subdivision'];
-$building_available = $_POST['building_available'];
+$role = $_POST['role'];
 
-//$subdivision = "BaoLi";
-//$building_available = 1;
-if ($building_available==1) {
-    $sql = "select building_number
-        from Subdivisions , Buildings
-        where subdivision_name='$subdivision' and Subdivisions.subdivision_id = Buildings.subdivision_id and Buildings.available=1;";
-}else{
-    $sql = "select building_number
-        from Subdivisions , Buildings
-        where subdivision_name='$subdivision' and Subdivisions.subdivision_id = Buildings.subdivision_id;";
+
+switch ($role){
+    case "Subdivision":
+        $sql = "select available
+                from Subdivisions
+                where subdivision_name = '$subdivision';";
+        break;
+    case "Building":
+        $sql = "select building_number
+                from Subdivisions , Buildings
+                where subdivision_name='$subdivision' and Subdivisions.subdivision_id = Buildings.subdivision_id and Buildings.available=1;";
+        break;
+    case "Apartment":
+        $sql = "select building_number
+            from Subdivisions , Buildings
+            where subdivision_name='$subdivision' and Subdivisions.subdivision_id = Buildings.subdivision_id;";
+        break;
 }
 $result = $conn->query($sql);
 $arr = array();
