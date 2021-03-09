@@ -1,0 +1,41 @@
+.building_board {
+    width: 1000px;
+    margin: 0 auto;
+    border:2px solid #a1a1a1;
+    margin-top: 20px;
+}
+.building_info{
+    position:absolute;
+}
+.apartment_text {
+    clear: both;
+    margin:5px;
+}
+.apartment_board {
+    margin:5px;
+}
+.type_info{
+    float: left;
+    margin: 5px;
+    font-weight: bold;
+}
+.info {
+    float: left;
+    margin: 5px;
+}
+.graph{
+    margin: 0 auto;
+    margin-top: 30px;
+    width: 1000px;height:400px;
+}
+table {
+    border-collapse: collapse;
+
+}
+th {
+    height: 40px;
+    width: 300px;
+}
+table, td, th {
+    border: 1px solid black;
+}

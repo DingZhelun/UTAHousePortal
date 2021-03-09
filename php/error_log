@@ -1,0 +1,16 @@
+[08-Mar-2021 02:17:22 UTC] PHP Fatal error:  Uncaught Error: Unsupported operand types in /home/zxc9069/public_html/UTAHousePortal/php/subd_getBuilding.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/zxc9069/public_html/UTAHousePortal/php/subd_getBuilding.php on line 13
+[08-Mar-2021 02:31:29 UTC] PHP Warning:  Use of undefined constant testing - assumed 'testing' (this will throw an Error in a future version of PHP) in /home/zxc9069/public_html/UTAHousePortal/php/subd_getBuilding.php on line 15
+[08-Mar-2021 02:46:42 UTC] PHP Warning:  A non-numeric value encountered in /home/zxc9069/public_html/UTAHousePortal/php/subd_getBuilding.php on line 13
+[08-Mar-2021 02:46:42 UTC] PHP Warning:  A non-numeric value encountered in /home/zxc9069/public_html/UTAHousePortal/php/subd_getBuilding.php on line 13
+[08-Mar-2021 02:48:08 UTC] PHP Warning:  A non-numeric value encountered in /home/zxc9069/public_html/UTAHousePortal/php/subd_getBuilding.php on line 13
+[08-Mar-2021 02:48:08 UTC] PHP Warning:  A non-numeric value encountered in /home/zxc9069/public_html/UTAHousePortal/php/subd_getBuilding.php on line 13
+[08-Mar-2021 02:55:17 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/zxc9069/public_html/UTAHousePortal/php/subd_getBuilding.php on line 22
+[08-Mar-2021 02:55:54 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/zxc9069/public_html/UTAHousePortal/php/subd_getBuilding.php on line 22
+[08-Mar-2021 02:56:58 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/zxc9069/public_html/UTAHousePortal/php/subd_getBuilding.php on line 20
+[08-Mar-2021 02:57:09 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/zxc9069/public_html/UTAHousePortal/php/subd_getBuilding.php on line 20
+[08-Mar-2021 02:57:15 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/zxc9069/public_html/UTAHousePortal/php/subd_getBuilding.php on line 20
+[08-Mar-2021 02:59:00 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/zxc9069/public_html/UTAHousePortal/php/subd_getBuilding.php on line 15
+[08-Mar-2021 02:59:02 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/zxc9069/public_html/UTAHousePortal/php/subd_getBuilding.php on line 15
