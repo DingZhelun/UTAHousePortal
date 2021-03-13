@@ -6,22 +6,23 @@ require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
 
-$name=$_POST['name'];
-$email=$_POST['email'];
-$phone=$_POST['phone'];
-$address=$_POST['address'];
-$role = $_POST['role'];
-$password = $_POST['password'];
+//$name=$_POST['name'];
+//$email=$_POST['email'];
+//$phone=$_POST['phone'];
+//$address=$_POST['address'];
+//$role = $_POST['role'];
+//$password = $_POST['password'];
 
-//$name = "zhelunding";
-//$email = "zxd8813@mavs.uta.edu";
+$name = "zhelunding";
+$email = "zxd8813@mavs.uta.edu";
 
 $sendmail = '1026130346@qq.com';
-$sendmailpswd = "rizuvesdkiqkbbjg";
+$sendmailpswd = "uvbmgvxubnpibchj";
 $send_name = 'Verification Code';
 $toemail = $email;
 $to_name = $name;
 $mail = new PHPMailer();
+$mail->SMTPDebug = 2;
 $mail->isSMTP();
 $mail->CharSet = "utf8";
 $mail->Host = "smtp.qq.com";
@@ -34,6 +35,13 @@ $mail->setFrom($sendmail, $send_name);
 $mail->addAddress($toemail, $to_name);
 $mail->Subject = "Verification Code";
 $code=rand(100000,999999);
+$mail->SMTPOptions = array(
+    'ssl' => array(
+        'verify_peer' => false,
+        'verify_peer_name' => false,
+        'allow_self_signed' => true
+    )
+);
 $mail->Body = "Your verification code is: $code, if not your own operation does not need to operate！";
 
 if (!$mail->send()) { // 发送邮件
