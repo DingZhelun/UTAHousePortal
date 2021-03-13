@@ -33,13 +33,13 @@
     </ul>
 </div>
 <div class="contact_txt">
-    <h1 id="title_cu">Apartment Page</h1>
+    <h1 id="title_cu">Subdivision Reports</h1>
 </div>
 <div class="contact_txt">
     <ul class="title-log">
         <li>
             <div class="login_click">
-                <a href="Apartment_report.html">Reports</a>
+                <a href="Subdivision_role.html">Home</a>
             </div>
         </li>
         <li>
@@ -49,42 +49,26 @@
         </li>
     </ul>
 </div>
-<div id="apart_info">
-    
-</div>
-<div class="request_title">
-    <h1 id="request_title">Send Request</h1>
-</div>
-<div class="contact_txt">
-    <textarea id="textarea" class="request_text" type="text" name="msg"></textarea>
-    <input class="request_button" type="button" value="Send" onclick="sendRequest()">
-</div>
 
+<div id="report_list">
+
+</div>
 
 <script type="text/javascript" src="php/getUser.php"></script>
 <script>
     document.getElementById("name").innerHTML = name;
-    window.onload = getContact();
-    function getContact(){
+    window.onload=getReport();
+    function getReport(){
         $.ajax({
             type:'post',
-            url:'php/apart_getContact.php',
+            url:'php/subd_getReport.php',
             success: function(data){
-                document.getElementById("apart_info").innerHTML = data;
-            }
-        })
-    }
-    function sendRequest(){
-        $.ajax({
-            type:'post',
-            url:'php/apart_sendRequest.php',
-            data: {msg:$('#textarea').val()},
-            success: function(data){
-                $("#textarea").val("");
-                alert('send request success');
+                console.log(data);
+                document.getElementById("report_list").innerHTML = data;
             }
         })
     }
 </script>
+
 </body>
 </html>

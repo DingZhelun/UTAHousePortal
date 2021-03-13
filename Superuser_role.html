@@ -22,7 +22,7 @@
     <ul class="title-log">
         <li>
             <div class="login_click">
-                <a>super user</a>
+                <a>Message</a>
             </div>
         </li>
         <li>
@@ -33,32 +33,13 @@
     </ul>
 </div>
 <div class="contact_txt">
-    <h1 id="title_cu">Apartment Page</h1>
+    <h1 id="title_cu">Super User</h1>
 </div>
-<div class="contact_txt">
-    <ul class="title-log">
-        <li>
-            <div class="login_click">
-                <a href="Apartment_report.html">Reports</a>
-            </div>
-        </li>
-        <li>
-            <div class="login_click">
-                <a href="">Message</a>
-            </div>
-        </li>
-    </ul>
-</div>
+
 <div id="apart_info">
     
 </div>
-<div class="request_title">
-    <h1 id="request_title">Send Request</h1>
-</div>
-<div class="contact_txt">
-    <textarea id="textarea" class="request_text" type="text" name="msg"></textarea>
-    <input class="request_button" type="button" value="Send" onclick="sendRequest()">
-</div>
+
 
 
 <script type="text/javascript" src="php/getUser.php"></script>
@@ -74,17 +55,7 @@
             }
         })
     }
-    function sendRequest(){
-        $.ajax({
-            type:'post',
-            url:'php/apart_sendRequest.php',
-            data: {msg:$('#textarea').val()},
-            success: function(data){
-                $("#textarea").val("");
-                alert('send request success');
-            }
-        })
-    }
+    \
 </script>
 </body>
 </html>
