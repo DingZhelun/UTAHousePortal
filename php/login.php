@@ -13,6 +13,7 @@ $rows=$result->fetch_assoc();
 if($rows){
 
     if ($rows['available']==1) {
+        session_start();
         $_SESSION['user_mail'] = $rows['contact_email'];
         $_SESSION['name'] = $rows['contact_name'];
         $_SESSION['tel'] = $rows['contact_tel'];
