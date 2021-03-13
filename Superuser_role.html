@@ -49,13 +49,36 @@
     function getContact(){
         $.ajax({
             type:'post',
-            url:'php/apart_getContact.php',
+            url:'php/super_getInfo.php',
             success: function(data){
                 document.getElementById("apart_info").innerHTML = data;
             }
         })
     }
-    \
+
+    function modifyUser(user_email) {
+        $.ajax({
+            type:'post',
+            url:'php/super_setModify.php',
+            data: {user: user_email},
+            success: function(data){
+                console.log('set success');
+            }
+        })
+    }
+
+    function deleteUser(user_email) {
+        $.ajax({
+            type:'post',
+            url:'php/super_deleteUser.php',
+            data: {user: user_email},
+            success: function(data){
+                alert('delete user success');
+                getContact();
+            }
+        })
+    }
+    
 </script>
 </body>
 </html>

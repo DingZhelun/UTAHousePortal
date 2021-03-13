@@ -45,6 +45,9 @@
 .request_button {
     margin: 0 auto;
 }
+.modify_box {
+    margin-left: 550px;
+}
 #request_title {
     padding: 10px;
     text-align: center;

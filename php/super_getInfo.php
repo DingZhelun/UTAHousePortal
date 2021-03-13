@@ -13,6 +13,7 @@ $res="<div class='building_board'>
 <th>option</th>
 </tr>";
 while($rows=$result->fetch_assoc()){
+    $email = $rows['contact_email'];
     $res=$res."<tr>
     <td>".$rows['contact_email']."</td>
     <td>".$rows['contact_name']."</td>
@@ -20,9 +21,11 @@ while($rows=$result->fetch_assoc()){
     <td>".$rows['password']."</td>
     <td>".$rows['role']."</td>
     <td>
-    <a href='#' onclick='modify(".$rows['contact_email'].")'>modify</a>
-    <a href='#' onclick='delete(".$rows['contact_email'].")'>delete</a>
+    <a href='Superuser_modify.html' onclick=\"modifyUser('".$email."')\">modify</a>
+    <a href='#' onclick=\"deleteUser('".$email."')\">delete</a>
     </td>
     </tr>";
 }
+$res=$res."</table></div>";
+echo $res;
 ?>
