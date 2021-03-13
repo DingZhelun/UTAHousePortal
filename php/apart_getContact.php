@@ -9,6 +9,7 @@ $result = $conn->query($sql);
 $res="";
 while($rows=$result->fetch_assoc()){
     $res = $res."<div class='building_board'>
+    <p>Responsible Contacts</p>
     <table class='apartment_board'>
     <tr>
     <th>subdivision name</th>
@@ -35,6 +36,27 @@ while($rows=$result->fetch_assoc()){
         <td>".$rows['building_add']."</td>
         <td>".$rows['b_contact_email']."</td>
         <td><a href=''>Click here</a></td>
+        </tr>
+    </table>
+    </div>";
+}
+$sql="SELECT ele_count, gas_count, water_count, int_count FROM Apartments WHERE contact_email='$user_email';";
+$result = $conn->query($sql);
+while($rows=$result->fetch_assoc()){
+    $res = $res."<div class='building_board'>
+    <p>Service Usage</p>
+    <table class='apartment_board'>
+    <tr>
+    <th>electricity</th>
+    <th>gas</th>
+    <th>water</th>
+    <th>Internet</th>
+    </tr>
+    <tr>
+        <td>".$rows['ele_count']."</td>
+        <td>".$rows['gas_count']."</td>
+        <td>".$rows['water_count']."</td>
+        <td>".$rows['int_count']."</td>
         </tr>
     </table>
     </div>";
