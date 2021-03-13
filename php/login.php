@@ -13,7 +13,7 @@ $rows=$result->fetch_assoc();
 if($rows){
 
     if ($rows['available']==1) {
-        $_SESSION['email'] = $rows['contact_email'];
+        $_SESSION['user_mail'] = $rows['contact_email'];
         $_SESSION['name'] = $rows['contact_name'];
         $_SESSION['tel'] = $rows['contact_tel'];
         $_SESSION['role'] = $rows['role'];
@@ -23,21 +23,25 @@ if($rows){
             echo "
                 <script>
                     alert('login success,Subdivision');
+                    window.location.href=\"../Subdivision_role.html\";
                 </script>";
         } else if ($rows['role'] == "Building") {
             echo "
                 <script>
                     alert('login success,Building');
+                    window.location.href=\"../Building_role.html\";
                 </script>";
         } else if ($rows['role'] == "Apartment") {
             echo "
                 <script>
                     alert('login success,Apartment');
+                    window.location.href=\"../Apartment_role.html\";
                 </script>";
-        } else if ($rows['role'] == "SuperAdmin") {
+        } else if ($rows['role'] == "Admin") {
             echo "
                 <script>
-                    alert('login success,SuperAdmin');
+                    alert('login success,Admin');
+                    window.location.href=\"../Superuser_role.html\";
                 </script>";
         }
         exit;
@@ -51,6 +55,7 @@ if($rows){
     echo "
     <script>
         alert('password or email error');
+        window.location.href=\"../login.html\";
     </script>";
 }
 
