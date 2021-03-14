@@ -23,7 +23,7 @@ while($rows=$result->fetch_assoc()){
         <td>".$rows['subdivision_name']."</td>
         <td>".$rows['subdivision_add']."</td>
         <td>".$rows['contact_email']."</td>
-        <td><a href='SendMessage.html' onclick=\"setTo('".$rows['s_contact_email']."')\">Click here</a></td>
+        <td><a href='SendMessage.html' onclick=\"setTo('".$rows['contact_email']."')\">Click here</a></td>
         </tr>
     </table>
     </div>";
