@@ -6,12 +6,12 @@ require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
 
-//$name=$_POST['name'];
-//$email=$_POST['email'];
-//$phone=$_POST['phone'];
-//$address=$_POST['address'];
-//$role = $_POST['role'];
-//$password = $_POST['password'];
+$name=$_POST['name'];
+$email=$_POST['email'];
+$phone=$_POST['phone'];
+$address=$_POST['address'];
+$role = $_POST['role'];
+$password = $_POST['password'];
 
 $name = "zhelunding";
 $email = "zxd8813@mavs.uta.edu";
