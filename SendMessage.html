@@ -22,7 +22,7 @@
     <ul class="title-log">
         <li>
             <div class="login_click">
-                <a href="SendMessage.html" onclick="setTo('admin@mavs.uta.edu')">super user</a>
+                <a href="http://zxd8813.uta.cloud">Blog</a>
             </div>
         </li>
         <li>
@@ -33,43 +33,25 @@
     </ul>
 </div>
 <div class="contact_txt">
-    <h1 id="title_cu">Apartment Page</h1>
+    <h1 id="title_cu">Message Page</h1>
 </div>
-<div class="contact_txt">
-    <ul class="title-log">
-        <li>
-            <div class="login_click">
-                <a href="http://zxd8813.uta.cloud">Blog</a>
-            </div>
-        </li>
-        <li>
-            <div class="login_click">
-                <a href="Apartment_report.html">Reports</a>
-            </div>
-        </li>
-        <li>
-            <div class="login_click">
-                <a href="MessageList.html">Message</a>
-            </div>
-        </li>
-    </ul>
-</div>
+
+
 <div id="apart_info">
     
 </div>
-<div class="request_title">
-    <h1 id="request_title">Send Request</h1>
-</div>
-<div class="contact_txt">
-    <textarea id="textarea" class="request_text" type="text" name="msg"></textarea>
-    <input class="request_button" type="button" value="Send" onclick="sendRequest()">
-</div>
 
+<div class="contact_txt">
+    <textarea id="to" class="message_to" type="text" name="to" placeholder="To: xxx@xx.com"></textarea>
+    <textarea id="msg" class="request_text" type="text" name="msg"></textarea>
+    <input class="request_button" type="button" value="Send" onclick="sendMessage()">
+</div>
 
 
 <script>
     window.onload = getUser();
-    window.onload = getContact();
+    window.onload = getTo();
+
     function getUser(){
         $.ajax({
             type:'post',
@@ -86,32 +68,26 @@
             }
         })
     }
-    function getContact(){
+
+    function getTo(){
         $.ajax({
             type:'post',
-            url:'php/apart_getContact.php',
+            url:'php/getTo.php',
+            dataType: 'json',
             success: function(data){
-                document.getElementById("apart_info").innerHTML = data;
+                document.getElementById("to").innerHTML = data;
             }
         })
     }
-    function sendRequest(){
+    function sendMessage(){
         $.ajax({
             type:'post',
-            url:'php/apart_sendRequest.php',
-            data: {msg:$('#textarea').val()},
+            url:'php/sendMessage.php',
+            data: {to:$('#to').val(), msg:$('#msg').val()},
             success: function(data){
-                $("#textarea").val("");
-                alert('send request success');
-            }
-        })
-    }
-    function setTo(user){
-        $.ajax({
-            type:'post',
-            url:'php/setTo.php',
-            data: {to: user},
-            success: function(data){
+                $("#to").val("");
+                $("#msg").val("");
+                alert('send message success');
             }
         })
     }

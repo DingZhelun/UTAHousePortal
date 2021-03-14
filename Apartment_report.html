@@ -22,12 +22,12 @@
     <ul class="title-log">
         <li>
             <div class="login_click">
-                <a>super user</a>
+                <a href="SendMessage.html" onclick="setTo('admin@mavs.uta.edu')">super user</a>
             </div>
         </li>
         <li>
             <div class="login_click">
-                <a href="login.html">Login out</a>
+                <a href="login.html" onclick="logout()">Login out</a>
             </div>
         </li>
     </ul>
@@ -39,12 +39,17 @@
     <ul class="title-log">
         <li>
             <div class="login_click">
+                <a href="http://zxd8813.uta.cloud">Blog</a>
+            </div>
+        </li>
+        <li>
+            <div class="login_click">
                 <a href="Apartment_role.html">Home</a>
             </div>
         </li>
         <li>
             <div class="login_click">
-                <a href="">Message</a>
+                <a href="MessageList.html">Message</a>
             </div>
         </li>
     </ul>
@@ -54,10 +59,25 @@
 
 </div>
 
-<script type="text/javascript" src="php/getUser.php"></script>
 <script>
-    document.getElementById("name").innerHTML = name;
+    window.onload=getUser();
     window.onload=getReport();
+    function getUser(){
+        $.ajax({
+            type:'post',
+            url:'php/getUser.php',
+            dataType: 'json',
+            success: function(data){
+                if(data===0){
+                    alert("please login!");
+                    window.location.href="login.html";
+                }
+                else{
+                    document.getElementById("name").innerHTML = data;
+                }
+            }
+        })
+    }
     function getReport(){
         $.ajax({
             type:'post',
@@ -65,6 +85,14 @@
             success: function(data){
                 console.log(data);
                 document.getElementById("report_list").innerHTML = data;
+            }
+        })
+    }
+    function logout(){
+        $.ajax({
+            type:'post',
+            url:'php/logout.php',
+            success: function(data){
             }
         })
     }

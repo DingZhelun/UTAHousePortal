@@ -21,7 +21,7 @@ while($rows=$result->fetch_assoc()){
         <td>".$rows['subdivision_name']."</td>
         <td>".$rows['subdivision_add']."</td>
         <td>".$rows['s_contact_email']."</td>
-        <td><a href=''>Click here</a></td>
+        <td><a href='SendMessage.html' onclick=\"setTo('".$rows['s_contact_email']."')\">Click here</a></td>
         </tr>
     </table>
     <table class='apartment_board'>
@@ -35,7 +35,7 @@ while($rows=$result->fetch_assoc()){
         <td>".$rows['building_number']."</td>
         <td>".$rows['building_add']."</td>
         <td>".$rows['b_contact_email']."</td>
-        <td><a href=''>Click here</a></td>
+        <td><a href='SendMessage.html' onclick=\"setTo('".$rows['b_contact_email']."')\">Click here</a></td>
         </tr>
     </table>
     </div>";

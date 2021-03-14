@@ -1,8 +1,7 @@
 <?php
 include('connect.php');
 session_start();
-// $user_email = $_SESSION['user_mail'];
-$user_email ="zxd8813@mavs.uta.edu";
+$user_email = $_SESSION['user_mail'];
 $sql = "select building_number, ele_count, gas_count, water_count
 from Subdivisions s INNER JOIN Buildings b on s.subdivision_id=b.subdivision_id
 where s.contact_email='$user_email';";

@@ -22,12 +22,17 @@
     <ul class="title-log">
         <li>
             <div class="login_click">
-                <a>Message</a>
+                <a href="http://zxd8813.uta.cloud">Blog</a>
             </div>
         </li>
         <li>
             <div class="login_click">
-                <a href="login.html">Login out</a>
+                <a href="MessageList.html">Message</a>
+            </div>
+        </li>
+        <li>
+            <div class="login_click">
+                <a href="login.html" onclick="logout()">Login out</a>
             </div>
         </li>
     </ul>
@@ -42,10 +47,27 @@
 
 
 
-<script type="text/javascript" src="php/getUser.php"></script>
 <script>
-    document.getElementById("name").innerHTML = name;
+    window.onload = getUser();
     window.onload = getContact();
+
+    function getUser(){
+        $.ajax({
+            type:'post',
+            url:'php/getUser.php',
+            dataType: 'json',
+            success: function(data){
+                if(data===0){
+                    alert("please login!");
+                    window.location.href="login.html";
+                }
+                else{
+                    document.getElementById("name").innerHTML = data;
+                }
+            }
+        })
+    }
+
     function getContact(){
         $.ajax({
             type:'post',
@@ -63,6 +85,15 @@
             data: {user: user_email},
             success: function(data){
                 console.log('set success');
+            }
+        })
+    }
+
+    function logout(){
+        $.ajax({
+            type:'post',
+            url:'php/logout.php',
+            success: function(data){
             }
         })
     }

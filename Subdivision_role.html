@@ -22,12 +22,17 @@
     <ul class="title-log">
         <li>
             <div class="login_click">
-                <a>super user</a>
+                <a href="http://zxd8813.uta.cloud">Blog</a>
             </div>
         </li>
         <li>
             <div class="login_click">
-                <a href="login.html">Login out</a>
+                <a href="SendMessage.html" onclick="setTo('admin@mavs.uta.edu')">super user</a>
+            </div>
+        </li>
+        <li>
+            <div class="login_click">
+                <a href="login.html" onclick="logout()">Login out</a>
             </div>
         </li>
     </ul>
@@ -44,7 +49,7 @@
         </li>
         <li>
             <div class="login_click">
-                <a href="login.html">Message</a>
+                <a href="MessageList.html">Message</a>
             </div>
         </li>
     </ul>
@@ -57,9 +62,17 @@
 </div>
 
 
-<script type="text/javascript" src="php/getUser.php">
-</script>
-<script type="module">
+
+<script>
+    function setTo(user){
+        $.ajax({
+            type:'post',
+            url:'php/setTo.php',
+            data: {to: user},
+            success: function(data){
+            }
+        })
+    }
     function getBuilding(){
         $.ajax({
             type:'post',
@@ -76,7 +89,7 @@
             async: false,
             success: function(data){
                 var result = JSON.parse(data);
-                console.log(result[0]);
+                console.log(result);
                 building=result[0];
                 ele=result[1];
                 gas=result[2];
@@ -84,9 +97,35 @@
             }
         })
     }
+    function logout(){
+        $.ajax({
+            type:'post',
+            url:'php/logout.php',
+            success: function(data){
+            }
+        })
+    }
+
+    function getUser(){
+        $.ajax({
+            type:'post',
+            url:'php/getUser.php',
+            dataType: 'json',
+            success: function(data){
+                if(data===0){
+                    alert("please login!");
+                    window.location.href="login.html";
+                }
+                else{
+                    document.getElementById("name").innerHTML = data;
+                }
+            }
+        })
+    }
     // import * as echarts from 'echarts';
-    document.getElementById("name").innerHTML = name;
+    // document.getElementById("name").innerHTML = name;
     var building,ele,gas,water;
+    window.onload = getUser();
     window.onload = getBuilding();
     window.onload = getGraph();
     
