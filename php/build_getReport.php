@@ -3,9 +3,11 @@ session_start();
 $user_email = $_SESSION['user_mail'];
 include('connect.php');
 $sql = "SELECT apartment_number, r.contact_email, report_time, r.water, r.gas, r.electricity, r.internet
- FROM (Reports r inner join Apartments a 
-on r.contact_email=a.contact_email) inner join Buildings b 
-on a.building_id=b.building_id WHERE b.contact_email='$user_email';";
+        FROM (Reports r inner join Apartments a 
+        on r.contact_email=a.contact_email) inner join Buildings b 
+        on a.building_id=b.building_id 
+        WHERE b.contact_email='$user_email'
+        order by apartment_number;";
 $result = $conn->query($sql);
 $res="<div class='building_board'>
 <p>Reports</p>
