@@ -28,7 +28,7 @@ while($rows=$result->fetch_assoc()){
     </table>
     </div>";
 }
-$sql = "SELECT apartment_number, c.contact_email, contact_name,contact_tel , ele_count, water_count, gas_count, int_count FROM Apartments a LEFT OUTER JOIN Contacts c on a.contact_email = c.contact_email WHERE building_id='$building';";
+$sql = "SELECT apartment_number, ifnull(c.contact_email, 'null') as 'contact_email', contact_name,contact_tel , ele_count, water_count, gas_count, int_count FROM Apartments a LEFT OUTER JOIN Contacts c on a.contact_email = c.contact_email WHERE building_id='$building';";
 $sub_result = $conn->query($sql);
 $res = $res."<div class='building_board'>
     <p>Apartments</p>
@@ -44,7 +44,19 @@ $res = $res."<div class='building_board'>
     </tr>";
 while($sub_rows=$sub_result->fetch_assoc()){
     $c_email=$sub_rows['contact_email'];
-    $res = $res."<tr>
+    if($c_email=="null"){
+        $res = $res."<tr>
+        <td>".$sub_rows['apartment_number']."</td>
+        <td>null</td>
+        <td>null</td>
+        <td>".$sub_rows['ele_count']."</td>
+        <td>".$sub_rows['water_count']."</td>
+        <td>".$sub_rows['gas_count']."</td>
+        <td>null</td>
+    </tr>";
+    }
+    else{
+        $res = $res."<tr>
     <td>".$sub_rows['apartment_number']."</td>
     <td>".$sub_rows['contact_email']."</td>
     <td>".$sub_rows['contact_tel']."</td>
@@ -53,6 +65,8 @@ while($sub_rows=$sub_result->fetch_assoc()){
     <td>".$sub_rows['gas_count']."</td>
     <td><a href='SendMessage.html' onclick=\"setTo('".$c_email."')\">Click here</a></td>
 </tr>";
+    }
+    
 }
 $res = $res."</table></div>";
 echo $res;

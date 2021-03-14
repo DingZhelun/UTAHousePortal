@@ -58,10 +58,14 @@
     
 </div>
 
+<div id="graph" class="graph">
 
+</div>
 
 
 <script>
+    var building,ele,gas,water;
+    window.onload = getGraph();
     window.onload = getUser();
     window.onload = getContact();
     function getUser(){
@@ -107,6 +111,80 @@
             }
         })
     }
+    function getGraph(){
+        $.ajax({
+            type:'post',
+            url:'php/build_getGraph.php',
+            async: false,
+            success: function(data){
+                var result = JSON.parse(data);
+                console.log(result);
+                building=result[0];
+                ele=result[1];
+                gas=result[2];
+                water=result[3];
+            }
+        })
+    }
+
+    var chartDom = document.getElementById('graph');
+    var myChart = echarts.init(chartDom);
+    var option;
+    console.log(building);
+    option = {
+    title: {
+        text: 'Apartment Usage Graph',
+        subtext: ''
+    },
+    tooltip: {
+        trigger: 'axis'
+    },
+    legend: {
+        data: ['electricity', 'water','gas']
+    },
+    toolbox: {
+        show: true,
+        feature: {
+            dataView: {show: true, readOnly: true},
+            magicType: {show: false, type: ['line', 'bar']},
+            restore: {show: false},
+            saveAsImage: {show: false}
+        }
+    },
+    calculable: true,
+    xAxis: [
+        {
+            type: 'category',
+            data: building,//building
+        }
+    ],
+    yAxis: [
+        {
+            type: 'value'
+        }
+    ],
+    series: [
+        {
+            name: 'electricity',
+            type: 'bar',
+            data: ele,
+        
+        },
+        {
+            name: 'gas',
+            type: 'bar',
+            data: gas,
+            
+        },
+        {
+            name: 'water',
+            type: 'bar',
+            data: water,
+        }
+    ]
+}   
+
+option && myChart.setOption(option);
 </script>
 </body>
 </html>
