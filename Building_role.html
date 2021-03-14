@@ -38,13 +38,13 @@
     </ul>
 </div>
 <div class="contact_txt">
-    <h1 id="title_cu">Apartment Reports</h1>
+    <h1 id="title_cu">Building Page</h1>
 </div>
 <div class="contact_txt">
     <ul class="title-log">
         <li>
             <div class="login_click">
-                <a href="Apartment_role.html">Home</a>
+                <a href="Building_report.html">Reports</a>
             </div>
         </li>
         <li>
@@ -54,14 +54,16 @@
         </li>
     </ul>
 </div>
-
-<div id="report_list">
-
+<div id="build_info">
+    
 </div>
 
+
+
+
 <script>
-    window.onload=getUser();
-    window.onload=getReport();
+    window.onload = getUser();
+    window.onload = getContact();
     function getUser(){
         $.ajax({
             type:'post',
@@ -78,13 +80,22 @@
             }
         })
     }
-    function getReport(){
+    function getContact(){
         $.ajax({
             type:'post',
-            url:'php/apart_getReport.php',
+            url:'php/build_getContact.php',
             success: function(data){
-                console.log(data);
-                document.getElementById("report_list").innerHTML = data;
+                document.getElementById("build_info").innerHTML = data;
+            }
+        })
+    }
+    
+    function setTo(user){
+        $.ajax({
+            type:'post',
+            url:'php/setTo.php',
+            data: {to: user},
+            success: function(data){
             }
         })
     }
@@ -97,6 +108,5 @@
         })
     }
 </script>
-
 </body>
 </html>

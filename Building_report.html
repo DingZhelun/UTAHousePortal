@@ -38,13 +38,13 @@
     </ul>
 </div>
 <div class="contact_txt">
-    <h1 id="title_cu">Apartment Reports</h1>
+    <h1 id="title_cu">Building Reports</h1>
 </div>
 <div class="contact_txt">
     <ul class="title-log">
         <li>
             <div class="login_click">
-                <a href="Apartment_role.html">Home</a>
+                <a href="Building_role.html">Home</a>
             </div>
         </li>
         <li>
@@ -81,7 +81,7 @@
     function getReport(){
         $.ajax({
             type:'post',
-            url:'php/apart_getReport.php',
+            url:'php/build_getReport.php',
             success: function(data){
                 console.log(data);
                 document.getElementById("report_list").innerHTML = data;

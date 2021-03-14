@@ -50,3 +50,23 @@ Stack trace:
 Stack trace:
 #0 {main}
   thrown in /home/zxc9069/public_html/UTAHousePortal/php/super_updateUser.php on line 8
+[14-Mar-2021 06:39:37 UTC] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on bool in /home/zxc9069/public_html/UTAHousePortal/php/build_getReport.php:22
+Stack trace:
+#0 {main}
+  thrown in /home/zxc9069/public_html/UTAHousePortal/php/build_getReport.php on line 22
+[14-Mar-2021 06:41:21 UTC] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on bool in /home/zxc9069/public_html/UTAHousePortal/php/build_getReport.php:22
+Stack trace:
+#0 {main}
+  thrown in /home/zxc9069/public_html/UTAHousePortal/php/build_getReport.php on line 22
+[14-Mar-2021 06:43:16 UTC] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on bool in /home/zxc9069/public_html/UTAHousePortal/php/build_getReport.php:22
+Stack trace:
+#0 {main}
+  thrown in /home/zxc9069/public_html/UTAHousePortal/php/build_getReport.php on line 22
+[14-Mar-2021 06:43:44 UTC] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on bool in /home/zxc9069/public_html/UTAHousePortal/php/build_getReport.php:22
+Stack trace:
+#0 {main}
+  thrown in /home/zxc9069/public_html/UTAHousePortal/php/build_getReport.php on line 22
+[14-Mar-2021 06:48:01 UTC] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on bool in /home/zxc9069/public_html/UTAHousePortal/php/build_getReport.php:22
+Stack trace:
+#0 {main}
+  thrown in /home/zxc9069/public_html/UTAHousePortal/php/build_getReport.php on line 22
